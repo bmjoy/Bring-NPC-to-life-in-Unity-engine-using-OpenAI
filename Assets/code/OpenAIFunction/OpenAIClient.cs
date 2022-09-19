@@ -1,10 +1,13 @@
 ﻿using System;
-using Newtonsoft.Json;
+// using Newtonsoft.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace OpenAIFunction
 {
@@ -40,7 +43,7 @@ namespace OpenAIFunction
             if (body == null)
             {
                 var modelParams = new ModelParameters() { model = model, prompt = prompt };
-                body = JsonConvert.SerializeObject(modelParams);
+             //   body = JsonUtility.FromJson<string>(modelParams);
             }
 
             var request = new HttpRequestMessage();
@@ -65,6 +68,7 @@ namespace OpenAIFunction
             return request;
         }
 
+        [Serializable]
         public class ModelParameters
         {
             public string model;
