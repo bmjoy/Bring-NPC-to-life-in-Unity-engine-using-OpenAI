@@ -1,16 +1,32 @@
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
+using TMPro;
 
 public class NPC_CreateWebRequest : MonoBehaviour
 {
-    void Start()
+    public string txtPromt;
+    public TextMeshProUGUI InputSpeakText; //drag and drop element
+
+    public void getValue()
     {
-        StartCoroutine(Upload());
+       txtPromt = InputSpeakText.text; //here the value is "a"
     }
 
-    IEnumerator Upload()
+    void Start()
     {
+       
+    }
+
+    public void Talk()
+    {
+        getValue();
+        StartCoroutine(SendPrompt());
+    }
+    
+    IEnumerator SendPrompt()
+    {
+        Debug.Log(txtPromt);
         WWWForm form = new WWWForm();
         form.AddField("myField", "myData");
 
